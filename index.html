@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finis Trabaja</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ══════════════════════ HEADER ══════════════════════ -->
+<header>
+  <img class="header-logo"
+       src="logo.png"
+       alt="Finis Trabaja" />
+  <div class="header-right">
+    <span class="mode-badge" id="modeBadge"></span>
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="btnEmpresa" onclick="establecerModo('empresa')">Empresa</button>
+      <button class="mode-btn"        id="btnAlumno"  onclick="establecerModo('alumno')">Alumno</button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════ MAIN ════════════════════════ -->
+<main>
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <h1 id="pageTitle">Mis Ofertas Publicadas</h1>
+      <p  id="pageSubtitle">Gestiona las vacantes activas de tu organización</p>
+    </div>
+    <div id="toolbarActions"></div>
+  </div>
+
+  <div id="infoBanner" style="display:none" class="info-bar">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
+         stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8"  x2="12"    y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span id="infoBannerText"></span>
+  </div>
+
+  <div id="offersGrid"  class="offers-grid"></div>
+  <div id="pagination"  class="pagination"></div>
+</main>
+
+<!-- ══════════════ MODAL — PUBLICAR OFERTA ═════════════ -->
+<div class="modal-overlay" id="modalPublicar">
+  <div class="modal">
+    <button class="modal-close" onclick="cerrarModal('modalPublicar')">×</button>
+    <h2>Publicar nueva oferta</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Título del cargo *</label>
+        <input type="text" id="fTitulo" placeholder="Ej: Desarrollador Full Stack" />
+      </div>
+      <div class="form-group">
+        <label>Carrera(s) *</label>
+        <input type="text" id="fCarrera" placeholder="Ej: Ingeniería Informática" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Descripción del cargo *</label>
+      <textarea id="fDesc"
+        placeholder="Describe las funciones y responsabilidades..."></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Sueldo mensual (CLP)</label>
+        <input type="number" id="fSueldo" placeholder="Ej: 800000" min="0" />
+      </div>
+      <div class="form-group">
+        <label>Tipo de jornada</label>
+        <select id="fJornada">
+          <option value="Tiempo completo">Tiempo completo</option>
+          <option value="Part-time">Part-time</option>
+          <option value="Por proyecto">Por proyecto</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Modalidad</label>
+        <select id="fModalidad">
+          <option value="Presencial">Presencial</option>
+          <option value="Remota">Remota</option>
+          <option value="Híbrida">Híbrida</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Ubicación</label>
+        <input type="text" id="fUbicacion" placeholder="Ej: Las Condes, Santiago" />
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost"   onclick="cerrarModal('modalPublicar')">Cancelar</button>
+      <button class="btn btn-primary" onclick="publicarOferta()">Publicar oferta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MODAL — POSTULAR ════════════════════ -->
+<div class="modal-overlay" id="modalPostular">
+  <div class="modal">
+    <button class="modal-close" onclick="cerrarModal('modalPostular')">×</button>
+    <h2>Postular a esta oferta</h2>
+
+    <div class="postular-info" id="postularInfo"></div>
+
+    <div class="form-group">
+      <label>Carta de presentación
+        <span style="color:var(--gray-400);font-weight:400">(opcional)</span>
+      </label>
+      <textarea id="fCarta"
+        placeholder="Escribe tu carta de presentación o deja en blanco para postular con tu CVV..."
+        style="min-height:110px"></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost"   onclick="cerrarModal('modalPostular')">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmarPostulacion()">Enviar postulación</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MODAL — VER POSTULANTES ════════════ -->
+<div class="modal-overlay" id="modalPostulantes">
+  <div class="modal">
+    <button class="modal-close" onclick="cerrarModal('modalPostulantes')">×</button>
+    <h2 id="postulantesTitle">Postulantes</h2>
+    <div id="postulantesBody"></div>
+  </div>
+</div>
+
+<!-- ══════════════ TOAST CONTAINER ════════════════════ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="datos.js"></script>
+<script src="app.js"></script>
+<script type="module" src="turso.js"></script>
+</body>
+</html>
