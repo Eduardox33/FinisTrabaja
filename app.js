@@ -107,7 +107,7 @@ function establecerModo(nuevoModo) {
   if (!esModoEmpresa && baseDeDatosLocal.idsPostuladas.size > 0) {
     barraInformativa.style.display = 'flex';
     document.getElementById('infoBannerText').textContent =
-      `Has postulado a ${baseDeDatosLocal.idsPostuladas.size} oferta(s). No se muestran en este listado.`;
+      `Has postulado a ${baseDeDatosLocal.idsPostuladas.size} oferta(s).`;
   } else {
     barraInformativa.style.display = 'none';
   }
